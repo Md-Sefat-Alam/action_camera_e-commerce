@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Rating } from "@mui/material";
 import React from "react";
 import SectionHeader from "../shared/SectionHeader/SectionHeader";
 import Slider from "../Slider/Slider";
@@ -23,7 +23,7 @@ const Home = () => {
         <Container maxWidth="lg">
           <div className="">
             {[1, 2, 3, 4, 5, 6].map((n) => (
-              <div className="my-2 bg-gray-100 rounded p-1 flex">
+              <div className="my-4 bg-gray-100 rounded p-1 flex">
                 <div className="flex items-center">
                   <div className="flex justify-center items-center w-20 h-20 bg-gray-200 rounded-full">
                     img
@@ -36,8 +36,15 @@ const Home = () => {
                     <h4 className="text-gray-900 font-bold">Md. Sefat Alam</h4>
                   </div>
                 </div>
-                <div className="bg-gray-200 flex-grow rounded pt-3 pl-1 pr-3 relative">
-                  <div className="absolute -top-3 left-2">SSSSSS</div>
+                <div className="bg-gray-100 flex-grow rounded pt-3 pl-1 pr-3 relative">
+                  <div className="absolute -top-3 left-2">
+                    <Rating
+                      name="half-rating-read"
+                      defaultValue={4.5}
+                      precision={0.5}
+                      readOnly
+                    />
+                  </div>
                   <div className="text-gray-500">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Voluptate sapiente non enim quia. Dignissimos, quidem

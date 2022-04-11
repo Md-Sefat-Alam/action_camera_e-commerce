@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home/Home";
+import Footer from "./components/shared/Footer/Footer";
 import Nav from "./components/shared/Nav/Nav";
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
           <Home></Home>
         </Route>
       </Switch>
+      <div>
+        <Footer />
+      </div>
     </Router>
   );
 }
