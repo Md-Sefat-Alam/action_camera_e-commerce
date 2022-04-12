@@ -1,8 +1,41 @@
 import { Button, Container, Input } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Register = () => {
+  const { emailpasswordRegister } = useAuth();
+  const [registerData, setRegisterData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const handleLoginData = (e, type) => {
+    switch (type) {
+      case "name":
+        const tempData1 = { ...registerData };
+        tempData1.name = e.target.value;
+        setRegisterData(tempData1);
+        break;
+      case "email":
+        const tempData2 = { ...registerData };
+        tempData2.email = e.target.value;
+        setRegisterData(tempData2);
+        break;
+      case "password":
+        const tempData3 = { ...registerData };
+        tempData3.password = e.target.value;
+        setRegisterData(tempData3);
+        break;
+      default:
+        break;
+    }
+  };
+  const handleRegister = (e) => {
+    e.preventDefault();
+    emailpasswordRegister(registerData.email, registerData.password);
+  };
+  console.log(registerData);
   return (
     <div className="pageRoot loginPageRoot">
       <Container maxWidth="lg">
@@ -24,6 +57,7 @@ const Register = () => {
                   type="text"
                   required
                   inputProps={""}
+                  onChange={(e) => handleLoginData(e, "name")}
                 />
               </div>
               <div>
@@ -33,6 +67,7 @@ const Register = () => {
                   type="email"
                   required
                   inputProps={""}
+                  onChange={(e) => handleLoginData(e, "email")}
                 />
               </div>
               <div>
@@ -42,10 +77,16 @@ const Register = () => {
                   required
                   placeholder="Password"
                   inputProps={""}
+                  onChange={(e) => handleLoginData(e, "password")}
                 />
               </div>
               <div className="py-5">
-                <Button type="submit" size="small" variant="outlined">
+                <Button
+                  onClick={handleRegister}
+                  type="submit"
+                  size="small"
+                  variant="outlined"
+                >
                   Register
                 </Button>
               </div>

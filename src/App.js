@@ -7,34 +7,37 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Footer from "./components/shared/Footer/Footer";
 import Nav from "./components/shared/Nav/Nav";
+import AllProvider from "./contexts/AllProviders/AllProvider";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Nav></Nav>
-      </div>
-      <Switch>
-        <Route exact path={"/"}>
-          <Home></Home>
-        </Route>
-        <Route path={"/home"}>
-          <Home></Home>
-        </Route>
-        <Route path={"/explore"}>
-          <Explore></Explore>
-        </Route>
-        <Route path={"/login"}>
-          <Login></Login>
-        </Route>
-        <Route path={"/register"}>
-          <Register></Register>
-        </Route>
-      </Switch>
-      <div>
-        <Footer />
-      </div>
-    </Router>
+    <AllProvider>
+      <Router>
+        <div>
+          <Nav></Nav>
+        </div>
+        <Switch>
+          <Route exact path={"/"}>
+            <Home></Home>
+          </Route>
+          <Route path={"/home"}>
+            <Home></Home>
+          </Route>
+          <Route path={"/explore"}>
+            <Explore></Explore>
+          </Route>
+          <Route path={"/login"}>
+            <Login></Login>
+          </Route>
+          <Route path={"/register"}>
+            <Register></Register>
+          </Route>
+        </Switch>
+        <div>
+          <Footer />
+        </div>
+      </Router>
+    </AllProvider>
   );
 }
 

@@ -1,9 +1,32 @@
-import { Button, Container, Input, TextField } from "@mui/material";
-import React from "react";
+import { Button, Container, Input } from "@mui/material";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import "./Login.css";
 
 const Login = () => {
+  const { emailPasswordLogin, setUser, setMessage, setError, setIsLoading } =
+    useAuth();
+  const loginEmail = useRef();
+  const loginPass = useRef();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    emailPasswordLogin(
+      loginEmail.current.firstChild.value,
+      loginPass.current.firstChild.value
+    )
+      .then((result) => {
+        setUser(result.user);
+        const text = `Welcome ${
+          result.user.displayName ? result.user.displayName : result.user.email
+        } Successfully Logedin`;
+        setMessage(text);
+      })
+      .catch((error) => setError(error.code))
+      .finally(() => setIsLoading(false));
+  };
+
   return (
     <div className="pageRoot loginPageRoot">
       <Container maxWidth="lg">
@@ -17,7 +40,7 @@ const Login = () => {
             </h4>
           </div>
           <div>
-            <form className="">
+            <form onSubmit={handleLogin} className="">
               <div>
                 <Input
                   className="font-serif"
@@ -25,6 +48,7 @@ const Login = () => {
                   type="email"
                   required
                   inputProps={""}
+                  ref={loginEmail}
                 />
               </div>
               <div>
@@ -34,6 +58,7 @@ const Login = () => {
                   required
                   placeholder="Password"
                   inputProps={""}
+                  ref={loginPass}
                 />
               </div>
               <div className="py-5">

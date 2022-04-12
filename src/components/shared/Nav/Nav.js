@@ -18,8 +18,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
+import useAuth from "../../hooks/useAuth";
 
 const Nav = () => {
+  const { user, logOut } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -133,7 +135,7 @@ const Nav = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {true ? (
+            {!user.accessToken ? (
               <Link className="text-gray-900 font-bold" to={"/login"}>
                 <LoginIcon /> Login
               </Link>
@@ -173,7 +175,12 @@ const Nav = () => {
                   <DashboardIcon /> Dashboard
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem
+                onClick={() => {
+                  handleCloseUserMenu();
+                  logOut();
+                }}
+              >
                 <Typography textAlign="center">
                   <LogoutIcon /> Logout
                 </Typography>
