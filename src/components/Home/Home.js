@@ -6,7 +6,7 @@ import ServiceCard from "../shared/ServiceCard/ServiceCard";
 
 const Home = () => {
   return (
-    <div>
+    <div className="pageRoot">
       <Slider></Slider>
       <div className="mt-6 pb-6 bg-gray-100">
         <SectionHeader text={"Products"} />

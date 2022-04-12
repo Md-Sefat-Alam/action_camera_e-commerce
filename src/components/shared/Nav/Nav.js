@@ -16,6 +16,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
+import { Link } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -88,14 +90,18 @@ const Nav = () => {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <HomeIcon /> Home
-                </Typography>
+                <Link to={"/home"}>
+                  <Typography textAlign="center">
+                    <HomeIcon /> Home
+                  </Typography>
+                </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">
-                  <ExploreIcon /> Explore
-                </Typography>
+                <Link to={"/explore"}>
+                  <Typography textAlign="center">
+                    <ExploreIcon /> Explore
+                  </Typography>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
@@ -106,28 +112,38 @@ const Nav = () => {
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           ></Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              className="text-gray-800 flex items-center"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "rgb(31 41 55)", display: "block" }}
-            >
-              <HomeIcon /> <span>Home</span>
-            </Button>
-            <Button
-              className="text-gray-800 flex items-center"
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "rgb(31 41 55)", display: "block" }}
-            >
-              <ExploreIcon /> <span>Explore</span>
-            </Button>
+            <Link to={"/home"}>
+              <Button
+                className="text-gray-800 flex items-center"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "rgb(31 41 55)", display: "block" }}
+              >
+                <HomeIcon /> <span>Home</span>
+              </Button>
+            </Link>
+            <Link to={"/explore"}>
+              <Button
+                className="text-gray-800 flex items-center"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "rgb(31 41 55)", display: "block" }}
+              >
+                <ExploreIcon /> <span>Explore</span>
+              </Button>
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            {true ? (
+              <Link className="text-gray-900 font-bold" to={"/login"}>
+                <LoginIcon /> Login
+              </Link>
+            ) : (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            )}
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

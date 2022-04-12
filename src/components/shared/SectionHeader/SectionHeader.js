@@ -4,11 +4,13 @@ import Container from "@mui/material/Container";
 const SectionHeader = ({ text }) => {
   return (
     <div
-      style={{ backgroundColor: "#3B5998" }}
+      style={{ backgroundColor: "#DFE3EE" }}
       className="p-1 text-xl font-bold my-5"
     >
       <Container maxWidth="lg">
-        <h3 className="font-bold capitalize text-gray-300">{text}</h3>
+        <h3 className="font-bold font-serif capitalize text-gray-800">
+          {text}
+        </h3>
       </Container>
     </div>
   );
