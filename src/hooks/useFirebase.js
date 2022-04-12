@@ -1,4 +1,4 @@
-import firebaseInit from "../../firebase/firebase.init";
+import firebaseInit from "../firebase/firebase.init";
 import {
   createUserWithEmailAndPassword,
   getAuth,

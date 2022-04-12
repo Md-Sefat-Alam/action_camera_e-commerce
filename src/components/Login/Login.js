@@ -1,7 +1,9 @@
 import { Button, Container, Input } from "@mui/material";
 import React, { useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import "./Login.css";
 
 const Login = () => {
@@ -9,18 +11,25 @@ const Login = () => {
     useAuth();
   const loginEmail = useRef();
   const loginPass = useRef();
+  const history = useHistory();
+  const location = useLocation();
+  const path = location.state?.from || "/home";
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     emailPasswordLogin(
       loginEmail.current.firstChild.value,
       loginPass.current.firstChild.value
     )
       .then((result) => {
         setUser(result.user);
+        loginEmail.current.firstChild.value = "";
+        loginPass.current.firstChild.value = "";
         const text = `Welcome ${
           result.user.displayName ? result.user.displayName : result.user.email
         } Successfully Logedin`;
+        history.push(path);
         setMessage(text);
       })
       .catch((error) => setError(error.code))

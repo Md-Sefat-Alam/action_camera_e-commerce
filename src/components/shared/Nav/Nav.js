@@ -18,12 +18,23 @@ import HomeIcon from "@mui/icons-material/Home";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
+import { useHistory, useLocation } from "react-router-dom";
 
 const Nav = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, setIsDashBoard, isDashBoard } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const history = useHistory();
+  const location = useLocation();
+
+  if (location !== "undefined") {
+    if (location?.pathname === "/dashboard") {
+      setIsDashBoard(true);
+    } else {
+      setIsDashBoard(false);
+    }
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -39,6 +50,10 @@ const Nav = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  if (isDashBoard) {
+    return null;
+  }
 
   return (
     <AppBar
@@ -142,7 +157,16 @@ const Nav = () => {
             ) : (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  {user.photoURL ? (
+                    <Avatar
+                      alt={user.displayName ? user.displayName : user.email}
+                      src={user.photoURL}
+                    />
+                  ) : (
+                    <Avatar className="uppercase">
+                      {user.displayName ? user.displayName[0] : user.email[0]}
+                    </Avatar>
+                  )}
                 </IconButton>
               </Tooltip>
             )}
@@ -170,7 +194,12 @@ const Nav = () => {
                   <AccountCircleIcon /> Profile
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
+              <MenuItem
+                onClick={() => {
+                  handleCloseUserMenu();
+                  history.push("/dashboard");
+                }}
+              >
                 <Typography textAlign="center">
                   <DashboardIcon /> Dashboard
                 </Typography>
