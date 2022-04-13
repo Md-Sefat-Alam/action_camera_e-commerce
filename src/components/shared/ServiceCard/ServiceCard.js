@@ -9,7 +9,9 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 export default function ServicCard({ product }) {
-  const { name, description, imgLink, price } = product;
+  const { _id, name, description, imgLink, price } = product;
+
+  const handleAddCart = (id, name, price) => {};
   return (
     <Card className="cursor-default" sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -28,8 +30,12 @@ export default function ServicCard({ product }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="outlined">
-          <ShoppingCartIcon /> Buy Now
+        <Button
+          onClick={() => handleAddCart(_id, name, price)}
+          size="small"
+          variant="outlined"
+        >
+          <ShoppingCartIcon /> Add to Cart
         </Button>
         <Button size="small">
           <FavoriteBorderIcon />

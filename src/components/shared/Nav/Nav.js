@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import useAuth from "../../../hooks/useAuth";
 import { useHistory, useLocation } from "react-router-dom";
+import BasicPopover from "../BasicPopover/BasicPopover";
 
 const Nav = () => {
   const { user, logOut, setIsDashBoard, isDashBoard } = useAuth();
@@ -154,6 +155,10 @@ const Nav = () => {
                 <ExploreIcon /> <span>Explore</span>
               </Button>
             </Link>
+          </Box>
+
+          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+            <BasicPopover />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
