@@ -1,3 +1,7 @@
 .pageRoot {
   min-height: 90vh;
 }
+.dashboardMenuActiveClass * {
+  color: orange;
+  font-weight: bolder;
+}

@@ -7,9 +7,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import SendIcon from "@mui/icons-material/Send";
-import DirectionsIcon from "@mui/icons-material/Directions";
+import useAuth from "../../../hooks/useAuth";
 
 const Footer = () => {
+  const { isDashBoard } = useAuth();
+  if (isDashBoard) {
+    return null;
+  }
   return (
     <footer
       style={{ minHeight: "300px" }}

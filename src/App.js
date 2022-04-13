@@ -11,11 +11,8 @@ import Register from "./components/Register/Register";
 import Footer from "./components/shared/Footer/Footer";
 import Nav from "./components/shared/Nav/Nav";
 import AllProvider from "./contexts/AllProviders/AllProvider";
-import useFirebase from "./hooks/useFirebase";
 
 function App() {
-  const { isDashBoard } = useFirebase();
-
   return (
     <AllProvider>
       <Router>
@@ -42,11 +39,9 @@ function App() {
             <Register></Register>
           </Route>
         </Switch>
-        {!isDashBoard && (
-          <div>
-            <Footer />
-          </div>
-        )}
+        <div>
+          <Footer />
+        </div>
       </Router>
     </AllProvider>
   );

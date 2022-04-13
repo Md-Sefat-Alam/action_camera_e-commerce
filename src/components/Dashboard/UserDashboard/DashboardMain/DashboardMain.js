@@ -1,25 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import RateReviewIcon from "@mui/icons-material/RateReview";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import useAuth from "../../../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
+import MyOrders from "../MyOrders/MyOrders";
+import Pay from "../Pay/Pay";
+import Review from "../Review/Review";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import ManageAllOrders from "../../AdminDashboard/ManageAllOrders/ManageAllOrders";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import QrCodeIcon from "@mui/icons-material/QrCode";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import ManageProducts from "../../AdminDashboard/ManageProducts/ManageProducts";
+import MakeAdmin from "../../AdminDashboard/MakeAdmin/MakeAdmin";
 
 const drawerWidth = 240;
 
 const DashboardMain = (props) => {
+  const { logOut } = useAuth();
+  const userRole = "admin";
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const history = useHistory();
+  let { path, url } = useRouteMatch();
+  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -28,28 +52,103 @@ const DashboardMain = (props) => {
     window !== undefined ? () => window().document.body : undefined;
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar className="text-gray-200 font-bold text-xl bg-gray-900">
+        {userRole === "admin" ? (
+          <>
+            <AdminPanelSettingsIcon /> Admin
+          </>
+        ) : (
+          "User Dashboard"
+        )}
+      </Toolbar>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
+        <NavLink activeClassName="dashboardMenuActiveClass" to={`${url}/pay`}>
+          <ListItem button>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <PaymentsIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary={"Pay"} />
           </ListItem>
-        ))}
+        </NavLink>
+
+        {userRole === "admin" ? (
+          <>
+            <NavLink
+              activeClassName="dashboardMenuActiveClass"
+              to={`${url}/manage-all-orders`}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <ShoppingCartCheckoutIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Manage All Orders"} />
+              </ListItem>
+            </NavLink>
+            <NavLink
+              activeClassName="dashboardMenuActiveClass"
+              to={`${url}/manage-products`}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <QrCodeIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Manage Products"} />
+              </ListItem>
+            </NavLink>
+            <NavLink
+              activeClassName="dashboardMenuActiveClass"
+              to={`${url}/make-admin`}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <AdminPanelSettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Make Admin"} />
+              </ListItem>
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink
+              activeClassName="dashboardMenuActiveClass"
+              to={`${url}/my-orders`}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <ShoppingBagIcon />
+                </ListItemIcon>
+                <ListItemText primary={"My Orders"} />
+              </ListItem>
+            </NavLink>
+            <NavLink
+              activeClassName="dashboardMenuActiveClass"
+              to={`${url}/review`}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <RateReviewIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Review"} />
+              </ListItem>
+            </NavLink>
+          </>
+        )}
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem onClick={() => history.push("/home")} button>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Go to home"} />
+        </ListItem>
+        <ListItem onClick={logOut} button>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Logout"} />
+        </ListItem>
       </List>
     </div>
   );
@@ -59,8 +158,11 @@ const DashboardMain = (props) => {
         <CssBaseline />
         <AppBar
           position="fixed"
-          style={{ backgroundColor: "rgb(17 24 39)" }}
-          className="bg-gray-900"
+          style={{
+            backgroundColor: "rgb(255 255 255)",
+            color: "rgb(31 41 55)",
+          }}
+          className=""
           sx={{
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             ml: { sm: `${drawerWidth}px` },
@@ -77,7 +179,7 @@ const DashboardMain = (props) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Responsive drawer
+              {location.pathname}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -128,36 +230,40 @@ const DashboardMain = (props) => {
           }}
         >
           <Toolbar />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
+          <Switch>
+            <Route path={`${path}/pay`}>
+              <Pay></Pay>
+            </Route>
+
+            {userRole === "admin" ? (
+              <>
+                <Route exact path={`${path}`}>
+                  <ManageAllOrders></ManageAllOrders>
+                </Route>
+                <Route path={`${path}/manage-all-orders`}>
+                  <ManageAllOrders></ManageAllOrders>
+                </Route>
+                <Route path={`${path}/manage-products`}>
+                  <ManageProducts></ManageProducts>
+                </Route>
+                <Route path={`${path}/make-admin`}>
+                  <MakeAdmin></MakeAdmin>
+                </Route>
+              </>
+            ) : (
+              <>
+                <Route exact path={path}>
+                  <MyOrders></MyOrders>
+                </Route>
+                <Route path={`${path}/my-orders`}>
+                  <MyOrders></MyOrders>
+                </Route>
+                <Route path={`${path}/review`}>
+                  <Review></Review>
+                </Route>
+              </>
+            )}
+          </Switch>
         </Box>
       </Box>
     </div>

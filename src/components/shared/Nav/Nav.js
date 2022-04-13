@@ -28,13 +28,21 @@ const Nav = () => {
   const history = useHistory();
   const location = useLocation();
 
+  // if (location !== "undefined") {
+  //   if (location?.pathname === "/dashboard") {
+  //     setIsDashBoard(true);
+  //   } else {
+  //     setIsDashBoard(false);
+  //   }
+  // }
   if (location !== "undefined") {
-    if (location?.pathname === "/dashboard") {
+    if (location?.pathname.includes("/dashboard")) {
       setIsDashBoard(true);
     } else {
       setIsDashBoard(false);
     }
   }
+  console.log(isDashBoard);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
