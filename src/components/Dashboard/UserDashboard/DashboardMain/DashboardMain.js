@@ -38,7 +38,7 @@ const drawerWidth = 240;
 
 const DashboardMain = (props) => {
   const { logOut } = useAuth();
-  const userRole = "admin";
+  const userRole = "user";
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const history = useHistory();
