@@ -1,10 +1,17 @@
 import { Container, Rating } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionHeader from "../shared/SectionHeader/SectionHeader";
 import Slider from "../Slider/Slider";
 import ServiceCard from "../shared/ServiceCard/ServiceCard";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/products6")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
+  console.log(products);
   return (
     <div className="pageRoot">
       <Slider></Slider>
@@ -12,9 +19,10 @@ const Home = () => {
         <SectionHeader text={"Products"} />
         <Container maxWidth="lg">
           <div className="grid grid-cols-3 gap-4">
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <ServiceCard></ServiceCard>
-            ))}
+            {products.length > 0 &&
+              products.map((product) => (
+                <ServiceCard key={product._id} product={product}></ServiceCard>
+              ))}
           </div>
         </Container>
       </div>

@@ -1,15 +1,18 @@
 import { Button, Container, Input } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
-  const { emailpasswordRegister } = useAuth();
+  const { emailpasswordRegister, setUser, setMessage, setError, setIsLoading } =
+    useAuth();
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const history = useHistory();
   const handleLoginData = (e, type) => {
     switch (type) {
       case "name":
@@ -33,9 +36,31 @@ const Register = () => {
   };
   const handleRegister = (e) => {
     e.preventDefault();
-    emailpasswordRegister(registerData.email, registerData.password);
+    emailpasswordRegister(registerData.email, registerData.password)
+      .then((userCredential) => {
+        history.push("/home");
+        setUser(userCredential.user);
+        axios
+          .post("http://localhost:5000/register", {
+            ...registerData,
+            email: userCredential.user.email,
+            role: "USER",
+          })
+          .then((res) => {
+            console.log(res);
+          });
+        const text = `Welcome ${
+          userCredential.user.displayName
+            ? userCredential.user.displayName
+            : userCredential.user.email
+        } Successfully registered and Logedin`;
+        setMessage(text);
+      })
+      .catch((error) => {
+        setError(error.code);
+      })
+      .finally(() => setIsLoading(false));
   };
-  console.log(registerData);
   return (
     <div className="pageRoot loginPageRoot">
       <Container maxWidth="lg">

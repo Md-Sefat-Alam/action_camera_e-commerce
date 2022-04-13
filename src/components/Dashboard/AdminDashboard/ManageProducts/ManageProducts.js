@@ -7,6 +7,7 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
 import SectionHeader from "../../../shared/SectionHeader/SectionHeader";
 
@@ -44,12 +45,27 @@ const ManageProducts = () => {
         break;
     }
   };
-  console.log(newProductData);
+
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+    if (window.confirm("Add new?")) {
+      axios
+        .post("http://localhost:5000/add_a_product", newProductData)
+        .then((res) => {
+          if (res.status === 200) {
+            e.target.reset();
+          } else {
+            console.log(res);
+          }
+        });
+    }
+  };
+
   return (
     <div>
       <SectionHeader text={"Add new product"} />
       <Container maxWidth="lg">
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => handleAddProduct(e)}>
           <div className="flex justify-start">
             <div className="m-1">
               <TextField
@@ -80,7 +96,7 @@ const ManageProducts = () => {
                 label="Image Link"
                 type="link"
                 required
-                autoComplete="current-password"
+                autoComplete=""
                 variant="standard"
               />
               <br />

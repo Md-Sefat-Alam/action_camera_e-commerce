@@ -8,22 +8,23 @@ import Typography from "@mui/material/Typography";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-export default function ServicCard() {
+export default function ServicCard({ product }) {
+  const { name, description, imgLink, price } = product;
   return (
     <Card className="cursor-default" sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         alt="green iguana"
         height="140"
-        image="https://cdn.pixabay.com/photo/2014/11/03/10/44/camera-514992_960_720.jpg"
+        image={imgLink}
+        style={{ height: "200px" }}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
+        <Typography gutterBottom variant="h6" component="div">
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {description}
         </Typography>
       </CardContent>
       <CardActions>
@@ -34,7 +35,7 @@ export default function ServicCard() {
           <FavoriteBorderIcon />
         </Button>
         <div>
-          <p className="text-xl text-gray-600 font-bold">36000 TK</p>
+          <p className="text-xl text-gray-600 font-bold">{price} TK</p>
         </div>
       </CardActions>
     </Card>

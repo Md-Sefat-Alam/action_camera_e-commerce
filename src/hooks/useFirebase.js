@@ -7,7 +7,6 @@ import {
   signOut,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 
 firebaseInit();
 const useFirebase = () => {
@@ -16,26 +15,11 @@ const useFirebase = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isDashBoard, setIsDashBoard] = useState(true);
   const [message, setMessage] = useState("");
-  const history = useHistory();
 
   const auth = getAuth();
   const emailpasswordRegister = (email, pass) => {
     setIsLoading(true);
-    createUserWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
-        setUser(userCredential.user);
-        const text = `Welcome ${
-          userCredential.user.displayName
-            ? userCredential.user.displayName
-            : userCredential.user.email
-        } Successfully registered and Logedin`;
-        setMessage(text);
-        history.push("/home");
-      })
-      .catch((error) => {
-        setError(error.code);
-      })
-      .finally(() => setIsLoading(false));
+    return createUserWithEmailAndPassword(auth, email, pass);
   };
 
   const emailPasswordLogin = (email, pass) => {
@@ -62,7 +46,6 @@ const useFirebase = () => {
     });
     return () => unsubscribe;
   }, []);
-  console.log(user);
   return {
     emailpasswordRegister,
     emailPasswordLogin,

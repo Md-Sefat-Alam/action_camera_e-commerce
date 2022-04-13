@@ -42,7 +42,6 @@ const Nav = () => {
       setIsDashBoard(false);
     }
   }
-  console.log(isDashBoard);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
