@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import SectionHeader from "../shared/SectionHeader/SectionHeader";
 import Slider from "../Slider/Slider";
 import ServiceCard from "../shared/ServiceCard/ServiceCard";
+import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  const { products, setProducts } = useAuth();
   useEffect(() => {
     fetch("http://localhost:5000/products6")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
-  console.log(products);
   return (
     <div className="pageRoot">
       <Slider></Slider>

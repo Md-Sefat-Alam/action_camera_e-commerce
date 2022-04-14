@@ -28,7 +28,6 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const history = useHistory();
   const location = useLocation();
-
   // if (location !== "undefined") {
   //   if (location?.pathname === "/dashboard") {
   //     setIsDashBoard(true);
@@ -36,6 +35,7 @@ const Nav = () => {
   //     setIsDashBoard(false);
   //   }
   // }
+
   if (location !== "undefined") {
     if (location?.pathname.includes("/dashboard")) {
       setIsDashBoard(true);

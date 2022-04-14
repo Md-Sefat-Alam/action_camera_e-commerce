@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 firebaseInit();
 const useFirebase = () => {
+  const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +47,7 @@ const useFirebase = () => {
     });
     return () => unsubscribe;
   }, []);
+
   return {
     emailpasswordRegister,
     emailPasswordLogin,
@@ -60,6 +62,8 @@ const useFirebase = () => {
     setIsLoading,
     isDashBoard,
     setIsDashBoard,
+    setProducts,
+    products,
   };
 };
 

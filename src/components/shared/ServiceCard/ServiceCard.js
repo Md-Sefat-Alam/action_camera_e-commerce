@@ -7,11 +7,49 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
 
 export default function ServicCard({ product }) {
   const { _id, name, description, imgLink, price } = product;
+  const { user, setIsLoading } = useAuth();
 
-  const handleAddCart = (id, name, price) => {};
+  const handleAddToCart = (id, name, price, email) => {
+    if (window.confirm("Confirmation Click Ok to Delete")) {
+      axios
+        .get(`http://localhost:5000/getToCart/${email}?id=${id}`)
+        .then((res) => {
+          if (res.status === 200) {
+            if (res.data === "") {
+              setIsLoading(true);
+              axios
+                .post(`http://localhost:5000/addToCart`, {
+                  id,
+                  name,
+                  price,
+                  email,
+                })
+                .then((res) => {
+                  console.log(res);
+
+                  setIsLoading(false);
+                  if (res.status === 200) {
+                    // forceUpdate();
+                    // setMessage("Delete Successfull");
+                  }
+                })
+                .catch((error) => {
+                  setIsLoading(false);
+                });
+            } else {
+              console.log("not added");
+            }
+          }
+        })
+        .catch((error) => {});
+    }
+  };
+
   return (
     <Card className="cursor-default" sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -31,7 +69,7 @@ export default function ServicCard({ product }) {
       </CardContent>
       <CardActions>
         <Button
-          onClick={() => handleAddCart(_id, name, price)}
+          onClick={() => handleAddToCart(_id, name, price, user.email)}
           size="small"
           variant="outlined"
         >
