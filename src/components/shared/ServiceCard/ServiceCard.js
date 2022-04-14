@@ -15,39 +15,35 @@ export default function ServicCard({ product }) {
   const { user, setIsLoading, setError, setMessage } = useAuth();
 
   const handleAddToCart = (id, name, price, email) => {
-    if (window.confirm("Confirmation Click Ok to Delete")) {
-      axios
-        .get(`http://localhost:5000/getToCart/${email}?id=${id}`)
-        .then((res) => {
-          if (res.status === 200) {
-            if (res.data === "") {
-              setIsLoading(true);
-              axios
-                .post(`http://localhost:5000/addToCart`, {
-                  id,
-                  name,
-                  price,
-                  email,
-                })
-                .then((res) => {
-                  console.log(res);
-
-                  setIsLoading(false);
-                  if (res.status === 200) {
-                    setMessage("Added to Cart");
-                  }
-                })
-                .catch((error) => {
-                  setIsLoading(false);
-                });
-            } else {
-              setError("Already Added");
-              console.log("not added");
-            }
+    axios
+      .get(`http://localhost:5000/getToCart/${email}?id=${id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          if (res.data === "") {
+            setIsLoading(true);
+            axios
+              .post(`http://localhost:5000/addToCart`, {
+                id,
+                name,
+                price,
+                email,
+              })
+              .then((res) => {
+                setIsLoading(false);
+                if (res.status === 200) {
+                  setMessage("Added to Cart");
+                }
+              })
+              .catch((error) => {
+                setIsLoading(false);
+              });
+          } else {
+            setError("Already Added");
+            // console.log("not added");
           }
-        })
-        .catch((error) => {});
-    }
+        }
+      })
+      .catch((error) => {});
   };
 
   return (

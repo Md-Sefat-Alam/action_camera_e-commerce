@@ -55,7 +55,6 @@ const ManageProducts = () => {
           if (res.status === 200) {
             e.target.reset();
           } else {
-            console.log(res);
           }
         });
     }

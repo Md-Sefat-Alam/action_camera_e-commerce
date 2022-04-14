@@ -12,6 +12,7 @@ import Footer from "./components/shared/Footer/Footer";
 import Nav from "./components/shared/Nav/Nav";
 import AllProvider from "./contexts/AllProviders/AllProvider";
 import Toolbar from "@mui/material/Toolbar";
+import OrderPlace from "./components/OrderPlace/OrderPlace";
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute path={"/dashboard"}>
             <DashboardMain />
+          </PrivateRoute>
+          <PrivateRoute path={"/orderplace"}>
+            <OrderPlace />
           </PrivateRoute>
           <Route path={"/login"}>
             <Login></Login>

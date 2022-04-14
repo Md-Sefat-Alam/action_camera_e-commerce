@@ -46,9 +46,7 @@ const Register = () => {
             email: userCredential.user.email,
             role: "USER",
           })
-          .then((res) => {
-            console.log(res);
-          });
+          .then((res) => {});
         const text = `Welcome ${
           userCredential.user.displayName
             ? userCredential.user.displayName

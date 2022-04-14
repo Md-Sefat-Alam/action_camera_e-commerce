@@ -15,17 +15,17 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 export default function BasicPopover() {
-  const { user, isLoading, setIsLoading } = useAuth();
+  const { user, isLoading, setIsLoading, setCart, cart } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [cart, setCart] = React.useState([]);
+  const history = useHistory();
 
   React.useEffect(() => {
     axios
       .get(`http://localhost:5000/singleUserCartData/${user.email}`)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setCart(res.data);
         }
@@ -39,7 +39,6 @@ export default function BasicPopover() {
     axios
       .delete(`http://localhost:5000/singleUserCartDataDelete/${email}`)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setCart(res);
           setIsLoading(false);
@@ -125,7 +124,13 @@ export default function BasicPopover() {
                     aria-label="secondary mailbox folders"
                   >
                     <List>
-                      <ListItem disablePadding>
+                      <ListItem
+                        onClick={() => {
+                          history.push("/orderplace");
+                          setAnchorEl(null);
+                        }}
+                        disablePadding
+                      >
                         <ListItemButton>
                           <ListItemIcon>
                             <ShoppingCartCheckoutIcon />

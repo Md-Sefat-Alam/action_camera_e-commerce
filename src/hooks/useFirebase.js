@@ -7,6 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 firebaseInit();
 const useFirebase = () => {
@@ -16,6 +17,9 @@ const useFirebase = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isDashBoard, setIsDashBoard] = useState(true);
   const [message, setMessage] = useState("");
+  const [cart, setCart] = useState([]);
+  const [quantityManage, setQuantityManage] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const auth = getAuth();
   const emailpasswordRegister = (email, pass) => {
@@ -40,6 +44,18 @@ const useFirebase = () => {
     const unsubscribe = onAuthStateChanged(auth, (userData) => {
       if (userData) {
         setUser(userData);
+        axios
+          .get(`http://localhost:5000/isadmin/${userData.email}`)
+          .then((res) => {
+            if (res.status === 200) {
+              if (res.data.role === "ADMIN") {
+                setIsAdmin(true);
+              } else {
+                setIsAdmin(false);
+              }
+            }
+          })
+          .catch((error) => setError("Database connection problem"));
       } else {
         setUser({});
       }
@@ -64,6 +80,11 @@ const useFirebase = () => {
     setIsDashBoard,
     setProducts,
     products,
+    cart,
+    setCart,
+    setQuantityManage,
+    quantityManage,
+    isAdmin,
   };
 };
 

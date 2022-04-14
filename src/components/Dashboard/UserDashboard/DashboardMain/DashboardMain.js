@@ -37,8 +37,7 @@ import MakeAdmin from "../../AdminDashboard/MakeAdmin/MakeAdmin";
 const drawerWidth = 240;
 
 const DashboardMain = (props) => {
-  const { logOut } = useAuth();
-  const userRole = "admin";
+  const { logOut, isAdmin } = useAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const history = useHistory();
@@ -53,7 +52,7 @@ const DashboardMain = (props) => {
   const drawer = (
     <div>
       <Toolbar className="text-gray-200 font-bold text-xl bg-gray-900">
-        {userRole === "admin" ? (
+        {isAdmin ? (
           <>
             <AdminPanelSettingsIcon /> Admin
           </>
@@ -72,7 +71,7 @@ const DashboardMain = (props) => {
           </ListItem>
         </NavLink>
 
-        {userRole === "admin" ? (
+        {isAdmin ? (
           <>
             <NavLink
               activeClassName="dashboardMenuActiveClass"
@@ -229,13 +228,13 @@ const DashboardMain = (props) => {
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
-          <Toolbar />
+          {/* <Toolbar /> */}
           <Switch>
             <Route path={`${path}/pay`}>
               <Pay></Pay>
             </Route>
 
-            {userRole === "admin" ? (
+            {isAdmin ? (
               <>
                 <Route exact path={`${path}`}>
                   <ManageAllOrders></ManageAllOrders>
