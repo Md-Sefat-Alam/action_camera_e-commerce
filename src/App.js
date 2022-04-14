@@ -11,6 +11,7 @@ import Register from "./components/Register/Register";
 import Footer from "./components/shared/Footer/Footer";
 import Nav from "./components/shared/Nav/Nav";
 import AllProvider from "./contexts/AllProviders/AllProvider";
+import Toolbar from "@mui/material/Toolbar";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Router>
         <div>
           <Nav></Nav>
+          <Toolbar />
         </div>
         <Switch>
           <Route exact path={"/"}>

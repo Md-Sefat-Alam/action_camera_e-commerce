@@ -12,7 +12,7 @@ import axios from "axios";
 
 export default function ServicCard({ product }) {
   const { _id, name, description, imgLink, price } = product;
-  const { user, setIsLoading } = useAuth();
+  const { user, setIsLoading, setError, setMessage } = useAuth();
 
   const handleAddToCart = (id, name, price, email) => {
     if (window.confirm("Confirmation Click Ok to Delete")) {
@@ -34,14 +34,14 @@ export default function ServicCard({ product }) {
 
                   setIsLoading(false);
                   if (res.status === 200) {
-                    // forceUpdate();
-                    // setMessage("Delete Successfull");
+                    setMessage("Added to Cart");
                   }
                 })
                 .catch((error) => {
                   setIsLoading(false);
                 });
             } else {
+              setError("Already Added");
               console.log("not added");
             }
           }

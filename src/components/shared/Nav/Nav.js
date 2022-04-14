@@ -65,7 +65,7 @@ const Nav = () => {
 
   return (
     <AppBar
-      position="static"
+      position="fixed"
       color="primary"
       style={{ backgroundColor: "#DFE3EE" }}
       className="text-gray-800"
@@ -158,7 +158,7 @@ const Nav = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            <BasicPopover />
+            {user.email && <BasicPopover />}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
