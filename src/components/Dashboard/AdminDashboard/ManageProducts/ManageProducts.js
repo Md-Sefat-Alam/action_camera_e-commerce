@@ -50,7 +50,10 @@ const ManageProducts = () => {
     e.preventDefault();
     if (window.confirm("Add new?")) {
       axios
-        .post("http://localhost:5000/add_a_product", newProductData)
+        .post(
+          "https://action-camera-engin.herokuapp.com/add_a_product",
+          newProductData
+        )
         .then((res) => {
           if (res.status === 200) {
             e.target.reset();

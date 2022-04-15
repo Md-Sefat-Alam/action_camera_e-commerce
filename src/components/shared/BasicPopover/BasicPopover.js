@@ -24,7 +24,9 @@ export default function BasicPopover() {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:5000/singleUserCartData/${user.email}`)
+      .get(
+        `https://action-camera-engin.herokuapp.com/singleUserCartData/${user.email}`
+      )
       .then((res) => {
         if (res.status === 200) {
           setCart(res.data);
@@ -37,7 +39,9 @@ export default function BasicPopover() {
     setIsLoading(true);
     setAnchorEl(null);
     axios
-      .delete(`http://localhost:5000/singleUserCartDataDelete/${email}`)
+      .delete(
+        `https://action-camera-engin.herokuapp.com/singleUserCartDataDelete/${email}`
+      )
       .then((res) => {
         if (res.status === 200) {
           setCart(res);

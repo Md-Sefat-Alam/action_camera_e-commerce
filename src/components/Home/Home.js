@@ -10,13 +10,13 @@ const Home = () => {
   const { products, setProducts } = useAuth();
   const [review, setReview] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/products6")
+    fetch("https://action-camera-engin.herokuapp.com/products6")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/review`)
+      .get(`https://action-camera-engin.herokuapp.com/review`)
       .then((res) => {
         if (res.status === 200) {
           setReview(res.data);

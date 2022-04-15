@@ -35,7 +35,7 @@ const OrderPlace = () => {
       for (const iterator of quantityManage) {
         // console.log({ email: user.email, ...iterator });
         axios
-          .post("http://localhost:5000/orderplace", {
+          .post("https://action-camera-engin.herokuapp.com/orderplace", {
             email: user.email,
             ...iterator,
             status: "pending",
@@ -52,7 +52,9 @@ const OrderPlace = () => {
       }
     }
     axios
-      .delete(`http://localhost:5000/singleUserCartDataDelete/${user.email}`)
+      .delete(
+        `https://action-camera-engin.herokuapp.com/singleUserCartDataDelete/${user.email}`
+      )
       .then((res) => {
         if (res.status === 200) {
           setCart(res);

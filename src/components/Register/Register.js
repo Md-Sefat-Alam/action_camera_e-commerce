@@ -41,7 +41,7 @@ const Register = () => {
         history.push("/home");
         setUser(userCredential.user);
         axios
-          .post("http://localhost:5000/register", {
+          .post("https://action-camera-engin.herokuapp.com/register", {
             ...registerData,
             email: userCredential.user.email,
             role: "USER",

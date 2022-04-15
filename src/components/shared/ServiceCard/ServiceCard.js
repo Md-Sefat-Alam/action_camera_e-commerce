@@ -16,13 +16,15 @@ export default function ServicCard({ product }) {
 
   const handleAddToCart = (id, name, price, email) => {
     axios
-      .get(`http://localhost:5000/getToCart/${email}?id=${id}`)
+      .get(
+        `https://action-camera-engin.herokuapp.com/getToCart/${email}?id=${id}`
+      )
       .then((res) => {
         if (res.status === 200) {
           if (res.data === "") {
             setIsLoading(true);
             axios
-              .post(`http://localhost:5000/addToCart`, {
+              .post(`https://action-camera-engin.herokuapp.com/addToCart`, {
                 id,
                 name,
                 price,

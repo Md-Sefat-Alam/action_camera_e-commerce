@@ -18,7 +18,7 @@ const MakeAdmin = () => {
   const [allUserList, setAllUserList] = useState([]);
   const [forceData, setForceData] = useState(1);
   useEffect(() => {
-    fetch(`http://localhost:5000/users`)
+    fetch(`https://action-camera-engin.herokuapp.com/users`)
       .then((res) => res.json())
       .then((data) => setAllUserList(data))
       .catch((error) => setError("Failed to Database Connection Try again"));
@@ -26,7 +26,9 @@ const MakeAdmin = () => {
   const handleMakeAdmin = (email) => {
     if (window.confirm("Confirmation Click Ok to make admin")) {
       axios
-        .put(`http://localhost:5000/user/makeadmin/${email}`)
+        .put(
+          `https://action-camera-engin.herokuapp.com/user/makeadmin/${email}`
+        )
         .then((res) => {
           if (res.status === 200) {
             setMessage("Update Successfull");
@@ -39,7 +41,9 @@ const MakeAdmin = () => {
   const handleRevomeAdmin = (email) => {
     if (window.confirm("Confirmation Click Ok to remove admin")) {
       axios
-        .put(`http://localhost:5000/user/removeadmin/${email}`)
+        .put(
+          `https://action-camera-engin.herokuapp.com/user/removeadmin/${email}`
+        )
         .then((res) => {
           if (res.status === 200) {
             setMessage("Update Successfull");

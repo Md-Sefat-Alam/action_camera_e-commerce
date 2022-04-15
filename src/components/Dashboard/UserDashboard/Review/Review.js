@@ -19,7 +19,7 @@ const Review = () => {
       date: new Date().toLocaleDateString(),
     };
     axios
-      .post(`http://localhost:5000/review`, reviewData)
+      .post(`https://action-camera-engin.herokuapp.com/review`, reviewData)
       .then((res) => {
         if (res.status === 200) {
           setMessage("Thanks for your review");

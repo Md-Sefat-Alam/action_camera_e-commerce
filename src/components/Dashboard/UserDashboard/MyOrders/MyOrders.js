@@ -20,7 +20,7 @@ const MyOrders = () => {
   const [forceUpdate, setForceUpdate] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myorders/${user.email}`)
+    fetch(`https://action-camera-engin.herokuapp.com/myorders/${user.email}`)
       .then((res) => res.json())
       .then((data) => setMyOrderData(data))
       .catch((error) => setError("Failed to Database Connection Try again"));
@@ -29,7 +29,9 @@ const MyOrders = () => {
   const handleDelete = (_id) => {
     if (window.confirm("Confirmation Click Ok to Delete")) {
       axios
-        .delete(`http://localhost:5000/myorders-remove-one/${_id}`)
+        .delete(
+          `https://action-camera-engin.herokuapp.com/myorders-remove-one/${_id}`
+        )
         .then((res) => {
           if (res.status === 200) {
             setForceUpdate(forceUpdate + 1);

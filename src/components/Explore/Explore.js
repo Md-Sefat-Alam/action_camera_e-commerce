@@ -6,7 +6,7 @@ import ServiceCard from "../shared/ServiceCard/ServiceCard";
 const Explore = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/all-products")
+    fetch("https://action-camera-engin.herokuapp.com/all-products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);

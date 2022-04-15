@@ -45,7 +45,9 @@ const useFirebase = () => {
       if (userData) {
         setUser(userData);
         axios
-          .get(`http://localhost:5000/isadmin/${userData.email}`)
+          .get(
+            `https://action-camera-engin.herokuapp.com/isadmin/${userData.email}`
+          )
           .then((res) => {
             if (res.status === 200) {
               if (res.data.role === "ADMIN") {
