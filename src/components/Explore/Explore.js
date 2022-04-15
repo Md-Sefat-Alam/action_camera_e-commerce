@@ -23,6 +23,14 @@ const Explore = () => {
     <div className="pageRoot">
       <SectionHeader text={"all products"} />
       <Container maxWidth="lg">
+        <div className="flex justify-end py-4">
+          <Pagination
+            count={count}
+            page={page}
+            onChange={handleChange}
+            color="secondary"
+          />
+        </div>
         <div className="pb-10 pt-2 grid grid-cols-3 gap-4">
           {products.length > 0 &&
             _DATA
